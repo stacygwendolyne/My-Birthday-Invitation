@@ -155,63 +155,41 @@ document.querySelectorAll('.fade-section').forEach(section => {
 //JS (Dynamic Guest Addition)
 // ✅ Manual guest list (you define it!)
 // Load guest list or initialize
-const scriptURL = "https://script.google.com/macros/s/AKfycbzVgxQh5ntLGzE7hBdwnhbyKlO8A62akQ-R3EgLy8FZ/exec";
+// Replace with your actual Apps Script Web App URL
+const sheetUrl = 'https://script.google.com/macros/s/AKfycbzVgxQh5ntLGzE7hBdwnhbyKlO8A62akQ-R3EgLy8FZ/exec';
 
-document.addEventListener("DOMContentLoaded", function () {
-  const tbody = document.getElementById("guest-tbody");
+function fetchGuests() {
+  fetch(sheetUrl)
+    .then(res => res.json())
+    .then(data => {
+      const tbody = document.getElementById('guest-tbody');
+      tbody.innerHTML = '';
 
-  // Fetch current guest data
-  fetch(scriptURL)
-    .then((res) => res.json())
-    .then((data) => {
-      tbody.innerHTML = ""; // Clear previous
-
-      data.forEach((row, index) => {
-        const [name, coming] = row;
-
-        const tr = document.createElement("tr");
-
-        const tdNo = document.createElement("td");
-        tdNo.textContent = index + 1;
-
-        const tdName = document.createElement("td");
-        tdName.textContent = name;
-
-        const tdCheckbox = document.createElement("td");
-        const checkbox = document.createElement("input");
-        checkbox.type = "checkbox";
-        checkbox.checked = coming === "true" || coming === true;
-        checkbox.dataset.name = name;
-
-        // When checkbox is changed, send update to Google Sheets
-        checkbox.addEventListener("change", function () {
-          const checked = this.checked;
-          fetch(scriptURL, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              name: this.dataset.name,
-              coming: checked,
-            }),
-          })
-          .then(() => {
-            console.log(`${this.dataset.name} updated to ${checked}`);
-          });
-        });
-
-        tdCheckbox.appendChild(checkbox);
-        tr.appendChild(tdNo);
-        tr.appendChild(tdName);
-        tr.appendChild(tdCheckbox);
-        tbody.appendChild(tr);
+      data.forEach((guest, index) => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${index + 1}</td>
+          <td>${guest.name}</td>
+          <td><input type="checkbox" ${guest.coming ? 'checked' : ''} onchange="updateRSVP('${guest.name}', this.checked)"></td>
+        `;
+        tbody.appendChild(row);
       });
-    })
-    .catch((err) => {
-      console.error("Error fetching guests:", err);
     });
-});
+}
+
+document.addEventListener('DOMContentLoaded', fetchGuests);
+
+function updateRSVP(name, coming) {
+  fetch(sheetUrl, {
+    method: 'POST',
+    body: JSON.stringify({ name, coming }),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+  .then(() => fetchGuests()); // refresh table
+}
+
 
 
 
