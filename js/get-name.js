@@ -23,7 +23,7 @@ document.getElementById('nameForm').addEventListener('submit', function(e) {
   if (isInvited) {
     // ✅ Save and continue
     localStorage.setItem('invitedName', name);
-    window.location.href = `index.html?name=${encodeURIComponent(name)}`;
+    window.location.href = `invitation.html?name=${encodeURIComponent(name)}`;
   } else {
     // ❌ Show error or go to not-invited page
     window.location.href = 'not-invited.html';
