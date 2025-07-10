@@ -1,4 +1,9 @@
 //get-name
+// Check if the invitedName exists in localStorage
+if (!localStorage.getItem('invitedName')) {
+  window.location.href = "index.html"; // Replace with your login page
+}
+
 document.addEventListener("DOMContentLoaded", function () {
   const name = localStorage.getItem('invitedName');
   const greeting = document.getElementById('greeting');
