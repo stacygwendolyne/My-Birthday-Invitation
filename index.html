@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nib's Birthday</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/x-icon" href="assets/up-logo.png">
+</head>
+
+<body>
+    <!-- 🎶 Background Music -->
+        <audio id="bg-music" autoplay loop>
+            <source src="assets/lany-outofmyleague.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+
+        <!-- 🪩 Spinning Vinyl -->
+        <div class="vinyl" onclick="toggleMusic()">
+            <img src="assets/vinyl.png" id="vinyl-img" alt="vinyl" />
+            <span id="emoji" class="emoji"></span>
+            <div id="notes-container"></div>
+        </div>
+
+
+    <section id="home" class="fade-section" data-theme="dark">
+        <div class="home-div">
+            <h1 id="greeting">Loading...</h1>
+
+            <div class="btn-container">
+                <button class="button-awal" onclick="scrollToSection('details')" style="animation-delay: 0.6s" >
+                    Details</button>
+                <button class="button-awal" onclick="scrollToSection('guests')" style="animation-delay: 0.8s">
+                    Guests</button>
+                <button class="button-awal" onclick="scrollToSection('activity')" style="animation-delay: 1s">
+                    Activities</button>
+                <!--<button class="button-awal" onclick="scrollToSection('vlogs')" style="animation-delay: 1.2s">
+                    Vlogs</button>-->
+            </div>
+        </div>
+    </section>
+
+    <section id="details" class="fade-section" data-theme="dark">
+        <div class="row justify-content-between">
+            <div class="the-date">
+                <h4>Nib's Birthday ⭑.ᐟ</h4>
+                <hr>
+                <p><i class="fas fa-fw fa-calendar-day"></i>on Saturday</p>
+                <p>July 19, 2025</p>
+                <p><i class="fas fa-fw fa-location-dot"></i>Dirumah masing masing</p>
+                <a 
+                href="https://www.google.com/calendar/render?action=TEMPLATE&text=Nib%27s+Birthday%21&dates=20250719T155100Z%2F20250720T155100Z"
+                class="btn btn-lg btn-pink rounded-pill" 
+                target="_blank">
+                    <i class="fas fa-fw fa-calendar-day"></i> Save to Calendar
+                </a>
+            </div>
+            <div class="the-loc">
+                <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1174.9894244199127!2d112.51306068924703!3d-7.876480038930416!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7887b24494383b%3A0xc45f888dcc304fcd!2sVilla%20Bless%20Batu!5e0!3m2!1sen!2sid!4v1751903814589!5m2!1sen!2sid"
+                width="400" height="300" style="border:0;"
+                allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <section id="guests" class="fade-section" data-theme="dark">
+        <div class="guest-div">
+            <h2>Guest List</h2>
+
+        <!-- RSVP Form 
+        <form id="rsvp-form">
+            <input type="text" id="guest-name" placeholder="Enter your name" required />
+            <button type="submit">Sign</button>
+        </form>-->
+
+        <!-- Guest Table -->
+        <table class="guest-table">
+            <thead>
+            <tr>
+                <th>No</th>
+                <th>Name</th>
+                <th>Coming?</th>
+            </tr>
+            </thead>
+            <tbody id="guest-tbody">
+            </tbody>
+        </table>
+        </div>
+    </section>
+
+    <section id="activity" class="fade-section" data-theme="light">
+        <h2>Activities</h2>
+
+        <div class="card-slider">
+            <button class="nav-btn left" onclick="prevCard()">◀</button>
+
+            <div class="card-container" id="card-container">
+            <div class="activity-card active">
+                <div class="card-image" style="background-image: url('assets/img1.jpg')"></div>
+                <div class="card-info">
+                <h3>Blind, Mute & Deaf</h3>
+                <p>A chaotic team challenge where one is blind, one is mute, and one is deaf. The goal? Work together to complete a task while each player has a different “disability”. Teamwork or disaster? Let’s find out!</p>
+                </div>
+            </div>
+
+            <div class="activity-card">
+                <div class="card-image" style="background-image: url('assets/img2.jpg')"></div>
+                <div class="card-info">
+                <h3>Poison Candy</h3>
+                <p>Looks sweet but beware! Some candies have spicy or weird flavors inside. Everyone picks one… will yours be sweet or a trick? 🍭😈</p>
+                </div>
+            </div>
+
+            <div class="activity-card">
+                <div class="card-image" style="background-image: url('assets/img3.jpg')"></div>
+                <div class="card-info">
+                <h3>Gartic Phone</h3>
+                <p>A drawing + guessing game full of nonsense and giggles. What starts as “a cat eating sushi” might end up as “Godzilla doing ballet” 😂</p>
+                </div>
+            </div>
+
+            <div class="activity-card">
+                <div class="card-image" style="background-image: url('assets/img4.jpg')"></div>
+                <div class="card-info">
+                <h3>Blind Karaoke</h3>
+                <p>Sing your heart out… without knowing the lyrics or the screen! The singer wears a blindfold while trying to match the music. Hilarious and heartwarming at the same time.</p>
+                </div>
+            </div>
+
+            <div class="activity-card">
+                <div class="card-image" style="background-image: url('assets/img5.jpg')"></div>
+                <div class="card-info">
+                <h3>Billiard</h3>
+                <p>Classic chill game with a competitive twist! Grab a cue and show your aim—either 8-ball or freestyle fun.</p>
+                </div>
+            </div>
+            </div>
+
+            <button class="nav-btn right" onclick="nextCard()">▶</button>
+
+            <!--<div class="drive-upload-box" onclick="window.open('httpos://drive.google.com/drive/folders/15GmDUVmE4MQtwbuexfDA5m9ARV-uXhz?usp=sharingE', '_blank')">
+                <img src="assets/camera.png" />
+                <h3>Upload Your Photo</h3>
+                <p>Click here to add your memories<br>to our shared gallery!</p>
+            </div>-->
+        </div>
+        </div>
+        
+    </section>
+
+    <section id="drive-upload" class="fade-section" data-theme="light">
+        <img src="assets/camera.png"><p>Time!</p>
+        <div class="gdrive-upload-box">
+            <h2>📤 Upload to Google Drive</h2>
+            <p>Drop your photos here. For personal use only.</p>
+            <button onclick="window.open('https://drive.google.com/drive/folders/15GmDUVmE4MQtwobuexfDA5m9ARV-uXhz?usp=sharing', '_blank')">
+                Upload Photo
+            </button>
+        </div>
+    
+
+
+       <!--  <div class="drive-gallery">
+        Here you could embed the folder OR load images via Google Drive API 
+        <iframe 
+            src="https://drive.google.com/embeddedfolderview?id=15GmDUVmE4MQtwobuexfDA5m9ARV-uXhz?usp=sharing#grid" 
+            style="width:100%; height:400px; border:none;">
+        </iframe>
+        </div>
+    </div>
+    </section>
+
+    <section class="gdrive-gallery" data-theme="light">
+        <h2>📸 Shared Memories</h2>
+        <p>All your memories will appear here automatically!</p>
+        <div class="gallery-embed">
+            <iframe src="https://gdrive.gallery/viewer.html?folder=15GmDUVmE4MQtwobuexfDA5m9ARV-uXhz?usp=sharing" 
+            width="100%" height="600" frameborder="0"></iframe>
+        </div>-->
+    </section>
+
+    <!--<section id="vlogs" class="fade-section" data-theme="light">
+        <div class="vlog-div">
+            <h2>#NIBVlog</h2>
+            <div class="vlog-container">
+                <div class="vlog-polaroid">
+                    <iframe src="https://www.youtube.com/embed/cNM8CWOWgkg?si=n08hMQSnQEAcZa6w" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
+                    <div class="vlog-caption">Trip to Batu 🎥</div>
+                </div>
+
+                <div class="vlog-polaroid">
+                        <iframe src="https://www.youtube.com/embed/VIDEO_ID" frameborder="0" allowfullscreen></iframe>
+                        <div class="vlog-caption">Trip to Batu 🎥</div>
+                </div>
+
+                <div class="vlog-polaroid">
+                        <iframe src="https://www.youtube.com/embed/VIDEO_ID" frameborder="0" allowfullscreen></iframe>
+                        <div class="vlog-caption">Trip to Batu 🎥</div>
+                </div>
+            </div>
+        </div>
+    </section>-->
+
+    <footer id="wish-footer" class="fade-section" data-theme="dark">
+        <p>Thank you for being part of my special day. Your presence means the world to me!</p>
+    </footer>
+
+    <!-- Toast Alert
+    <div id="toast-alert" class="toast-alert">
+    <span id="toast-text">🚫 This name has already signed!</span>
+    </div>-->
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Access Denied</title>
+  <link rel="stylesheet" href="css/not-invited.css">
+  <link rel="icon" type="image/x-icon" href="assets/sad-face.png">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Roboto&display=swap');
+
+body {
+  background: linear-gradient(145deg, #081F5C, #f7f2eb);
+  font-family: 'Playfair Display', serif;
+  color: #ffffff;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  background: rgba(0, 0, 0, 0.6);
+  padding: 3rem;
+  border-radius: 20px;
+  box-shadow: 0 0 25px rgba(255, 255, 255, 0.2);
+  max-width: 500px;
+}
+
+h1 {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+  color: #ffb6c1;
+}
+
+.message {
+  font-size: 1.5rem;
+  margin-bottom: 0.8rem;
+  color: #f7f2eb;
+}
+
+.subtext {
+  font-size: 1rem;
+  color: #ccc;
+  margin-bottom: 2rem;
+}
+
+.retry-button {
+  text-decoration: none;
+  background-color: #ffb6c1;
+  color: #081F5C;
+  padding: 0.7rem 2rem;
+  border-radius: 30px;
+  font-weight: bold;
+  transition: background 0.3s ease;
+}
+
+.retry-button:hover {
+  background-color: #f47a9c;
+}
+  </style>
+
+</head>
+
+<body>
+  <div class="container">
+    <h1>🚫 Sorry!</h1>
+    <p class="message">You’re not on the guest list for Nib’s Birthday Party.</p>
+    <p class="subtext">If you think this is a mistake, please contact the host.</p>
+    <a href="get-name.html" class="retry-button">← Try Again</a>
+  </div>
+</body>
+</html>
+
