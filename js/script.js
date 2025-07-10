@@ -170,6 +170,22 @@ checkbox.addEventListener('change', () => {
   });
 });
 
+window.onload = function() {
+  const name = localStorage.getItem('invitedName');
+  const checkbox = document.getElementById('comingCheckbox');
+
+  fetch('AKfycbzVgxQh5ntLGzE7hBdwnhbyKlO8A62akQ-R3EgLy8FZ')
+    .then(res => res.json())
+    .then(data => {
+      const row = data.find(row => row[0].toLowerCase() === name.toLowerCase());
+      if (row) {
+        checkbox.checked = row[1] === "true" || row[1] === true;
+      }
+    });
+};
+
+
+
 //CARDS
 function nextCard() {
   const container = document.getElementById('card-container');
