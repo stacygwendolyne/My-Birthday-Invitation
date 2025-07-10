@@ -822,6 +822,8 @@ input[type="checkbox"]:checked::before {
   transform: translateX(-50%);
   font-size: 2rem;
   animation: float 2s ease-in-out infinite;
+  color: #f76786;
+  text-shadow: 0 10px 12px rgba(0, 0, 0, 0.3);
 }
 
 @keyframes float {
