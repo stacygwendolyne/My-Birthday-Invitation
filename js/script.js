@@ -155,43 +155,63 @@ document.querySelectorAll('.fade-section').forEach(section => {
 //JS (Dynamic Guest Addition)
 // ✅ Manual guest list (you define it!)
 // Load guest list or initialize
+const scriptURL = "https://script.google.com/macros/s/AKfycbzVgxQh5ntLGzE7hBdwnhbyKlO8A62akQ-R3EgLy8FZ/exec";
 
+document.addEventListener("DOMContentLoaded", function () {
+  const tbody = document.getElementById("guest-tbody");
 
-    const name = localStorage.getItem('invitedName');
-    const checkbox = document.getElementById('comingCheckbox');
-    const nameDisplay = document.getElementById('guest-name');
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbzVgxQh5ntLGzE7hBdwnhbyKlO8A62akQ-R3EgLy8FZ/exec'; // 🔁 Replace this
+  // Fetch current guest data
+  fetch(scriptURL)
+    .then((res) => res.json())
+    .then((data) => {
+      tbody.innerHTML = ""; // Clear previous
 
-    // Update name on the page
-    if (name) {
-      nameDisplay.textContent = name;
-    }
+      data.forEach((row, index) => {
+        const [name, coming] = row;
 
-    // Save to Google Sheets on checkbox change
-    checkbox.addEventListener('change', () => {
-      const isComing = checkbox.checked;
+        const tr = document.createElement("tr");
 
-      fetch(scriptURL, {
-        method: 'POST',
-        body: JSON.stringify({ name: name, coming: isComing }),
-        headers: {
-          'Content-Type': 'application/json'
-        }
+        const tdNo = document.createElement("td");
+        tdNo.textContent = index + 1;
+
+        const tdName = document.createElement("td");
+        tdName.textContent = name;
+
+        const tdCheckbox = document.createElement("td");
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.checked = coming === "true" || coming === true;
+        checkbox.dataset.name = name;
+
+        // When checkbox is changed, send update to Google Sheets
+        checkbox.addEventListener("change", function () {
+          const checked = this.checked;
+          fetch(scriptURL, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              name: this.dataset.name,
+              coming: checked,
+            }),
+          })
+          .then(() => {
+            console.log(`${this.dataset.name} updated to ${checked}`);
+          });
+        });
+
+        tdCheckbox.appendChild(checkbox);
+        tr.appendChild(tdNo);
+        tr.appendChild(tdName);
+        tr.appendChild(tdCheckbox);
+        tbody.appendChild(tr);
       });
+    })
+    .catch((err) => {
+      console.error("Error fetching guests:", err);
     });
-
-    // Load checkbox status from Google Sheets on page load
-    window.onload = () => {
-      fetch(AKfycbzVgxQh5ntLGzE7hBdwnhbyKlO8A62akQ-R3EgLy8FZ)
-        .then(res => res.json())
-        .then(data => {
-          const guestRow = data.find(row => row[0].toLowerCase() === name?.toLowerCase());
-          if (guestRow) {
-            checkbox.checked = guestRow[1] === 'true' || guestRow[1] === true;
-          }
-        })
-        .catch(err => console.error('Failed to fetch data:', err));
-    };
+});
 
 
 
