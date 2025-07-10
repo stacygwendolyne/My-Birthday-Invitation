@@ -155,44 +155,20 @@ document.querySelectorAll('.fade-section').forEach(section => {
 //JS (Dynamic Guest Addition)
 // ✅ Manual guest list (you define it!)
 // Load guest list or initialize
-let guestList = JSON.parse(localStorage.getItem("manualRSVP")) || [
-  { name: "mama", coming: false },
-  { name: "papa", coming: false },
-  { name: "qaireen", coming: false },
-  { name: "uti", coming: false },
-  { name: "lio", coming: false },
-  { name: "aya", coming: false },
-  { name: "selena", coming: false },
-  { name: "zizi", coming: false },
-  { name: "bellya", coming: false }
-];
 
-function updateComingStatus(index, status) {
-  guestList[index].coming = status;
-  localStorage.setItem('manualRSVP', JSON.stringify(guestList));
-  renderGuests();
-}
 
-function renderGuests() {
-  const tbody = document.getElementById("guest-tbody");
-  tbody.innerHTML = '';
+const name = localStorage.getItem('invitedName'); // e.g. "aya"
+const checkbox = document.getElementById('comingCheckbox');
 
-  guestList.forEach((guest, index) => {
-    const row = document.createElement("tr");
-    row.innerHTML = `
-      <td>${index + 1}</td>
-      <td>${guest.name}</td>
-      <td>
-        <input type="checkbox" 
-               ${guest.coming ? "checked" : ""}
-               onchange="updateComingStatus(${index}, this.checked)">
-      </td>
-    `;
-    tbody.appendChild(row);
+checkbox.addEventListener('change', () => {
+  const isComing = checkbox.checked;
+
+  fetch('AKfycbzVgxQh5ntLGzE7hBdwnhbyKlO8A62akQ-R3EgLy8FZ', {
+    method: 'POST',
+    body: JSON.stringify({ name: name, coming: isComing }),
+    headers: { 'Content-Type': 'application/json' }
   });
-}
-
-renderGuests();
+});
 
 //CARDS
 function nextCard() {
