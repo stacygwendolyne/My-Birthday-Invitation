@@ -157,32 +157,41 @@ document.querySelectorAll('.fade-section').forEach(section => {
 // Load guest list or initialize
 
 
-const name = localStorage.getItem('invitedName'); // e.g. "aya"
-const checkbox = document.getElementById('comingCheckbox');
+    const name = localStorage.getItem('invitedName');
+    const checkbox = document.getElementById('comingCheckbox');
+    const nameDisplay = document.getElementById('guest-name');
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbzVgxQh5ntLGzE7hBdwnhbyKlO8A62akQ-R3EgLy8FZ/exec'; // 🔁 Replace this
 
-checkbox.addEventListener('change', () => {
-  const isComing = checkbox.checked;
+    // Update name on the page
+    if (name) {
+      nameDisplay.textContent = name;
+    }
 
-  fetch('AKfycbzVgxQh5ntLGzE7hBdwnhbyKlO8A62akQ-R3EgLy8FZ', {
-    method: 'POST',
-    body: JSON.stringify({ name: name, coming: isComing }),
-    headers: { 'Content-Type': 'application/json' }
-  });
-});
+    // Save to Google Sheets on checkbox change
+    checkbox.addEventListener('change', () => {
+      const isComing = checkbox.checked;
 
-window.onload = function() {
-  const name = localStorage.getItem('invitedName');
-  const checkbox = document.getElementById('comingCheckbox');
-
-  fetch('AKfycbzVgxQh5ntLGzE7hBdwnhbyKlO8A62akQ-R3EgLy8FZ')
-    .then(res => res.json())
-    .then(data => {
-      const row = data.find(row => row[0].toLowerCase() === name.toLowerCase());
-      if (row) {
-        checkbox.checked = row[1] === "true" || row[1] === true;
-      }
+      fetch(scriptURL, {
+        method: 'POST',
+        body: JSON.stringify({ name: name, coming: isComing }),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
     });
-};
+
+    // Load checkbox status from Google Sheets on page load
+    window.onload = () => {
+      fetch(AKfycbzVgxQh5ntLGzE7hBdwnhbyKlO8A62akQ-R3EgLy8FZ)
+        .then(res => res.json())
+        .then(data => {
+          const guestRow = data.find(row => row[0].toLowerCase() === name?.toLowerCase());
+          if (guestRow) {
+            checkbox.checked = guestRow[1] === 'true' || guestRow[1] === true;
+          }
+        })
+        .catch(err => console.error('Failed to fetch data:', err));
+    };
 
 
 
