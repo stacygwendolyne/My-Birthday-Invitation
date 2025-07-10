@@ -1,6 +1,7 @@
 //get-name.html
 document.getElementById('nameForm').addEventListener('submit', function(e) {
   e.preventDefault();
+  const guestName = localStorage.getItem("invitedName");
 
   const name = document.getElementById('username').value.trim();
 
