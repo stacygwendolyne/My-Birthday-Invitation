@@ -150,23 +150,11 @@ document.querySelectorAll('.fade-section').forEach(section => {
 });
 
 
-//GUEST
-const allowedGuests = [
-  "aya",
-  "zizi",
-  "selena",
-  "bellya",
-  "mama",
-  "papa",
-  "uti",
-  "qaireen",
-  "lio",
-];
-
 
 
 //JS (Dynamic Guest Addition)
 // ✅ Manual guest list (you define it!)
+// Load guest list or initialize
 let guestList = JSON.parse(localStorage.getItem("manualRSVP")) || [
   { name: "mama", coming: false },
   { name: "papa", coming: false },
@@ -175,35 +163,32 @@ let guestList = JSON.parse(localStorage.getItem("manualRSVP")) || [
   { name: "lio", coming: false },
   { name: "aya", coming: false },
   { name: "selena", coming: false },
-  { name: "zizi", coming: false }
+  { name: "zizi", coming: false },
+  { name: "bellya", coming: false }
 ];
 
-
-const guestTbody = document.getElementById("guest-tbody");
-
-
-// ✅ Update status on checkbox toggle
 function updateComingStatus(index, status) {
   guestList[index].coming = status;
   localStorage.setItem('manualRSVP', JSON.stringify(guestList));
+  renderGuests();
 }
 
-// ✅ Render the guest table
 function renderGuests() {
-  guestTbody.innerHTML = '';
+  const tbody = document.getElementById("guest-tbody");
+  tbody.innerHTML = '';
+
   guestList.forEach((guest, index) => {
-    const row = document.createElement('tr');
+    const row = document.createElement("tr");
     row.innerHTML = `
       <td>${index + 1}</td>
       <td>${guest.name}</td>
       <td>
-        <input 
-          type="checkbox" 
-          ${guest.coming ? "checked" : ""} 
-          onchange="updateComingStatus(${index}, this.checked)">
+        <input type="checkbox" 
+               ${guest.coming ? "checked" : ""}
+               onchange="updateComingStatus(${index}, this.checked)">
       </td>
     `;
-    guestTbody.appendChild(row);
+    tbody.appendChild(row);
   });
 }
 
