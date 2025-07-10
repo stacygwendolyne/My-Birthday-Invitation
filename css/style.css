@@ -180,11 +180,11 @@ body {
 }
 
 
-/*GUEST*/
+/*GUEST
 .guest-div {
   height: 100vh;
   display: flex;
-  flex-direction: column; /* stack h1 and buttons vertically */
+  flex-direction: column; /* stack h1 and buttons vertically
   justify-content: center;
   align-items: center;
   text-align: center;
@@ -268,7 +268,7 @@ body {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* Hide the default checkbox */
+/* Hide the default checkbox
 input[type="checkbox"] {
   appearance: none;
   -webkit-appearance: none;
@@ -282,7 +282,7 @@ input[type="checkbox"] {
   transition: background-color 0.3s ease;
 }
 
-/* The circle inside */
+/* The circle inside
 input[type="checkbox"]::before {
   content: "";
   width: 18px;
@@ -296,7 +296,7 @@ input[type="checkbox"]::before {
   box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 
-/* When checked, move the circle and change color */
+/* When checked, move the circle and change color
 input[type="checkbox"]:checked {
   background-color: #4bd865;
 }
