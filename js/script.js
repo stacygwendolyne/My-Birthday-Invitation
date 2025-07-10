@@ -167,7 +167,7 @@ const allowedGuests = [
 
 //JS (Dynamic Guest Addition)
 // ✅ Manual guest list (you define it!)
-let guestList = [
+let guestList = JSON.parse(localStorage.getItem("manualRSVP")) || [
   { name: "mama", coming: false },
   { name: "papa", coming: false },
   { name: "qaireen", coming: false },
@@ -178,13 +178,9 @@ let guestList = [
   { name: "zizi", coming: false }
 ];
 
+
 const guestTbody = document.getElementById("guest-tbody");
 
-// ✅ Load from localStorage if exists
-function updateComingStatus(index, status) {
-  guestList[index].coming = status;
-  localStorage.setItem('manualRSVP', JSON.stringify(guestList));
-}
 
 // ✅ Update status on checkbox toggle
 function updateComingStatus(index, status) {
